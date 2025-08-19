@@ -1,0 +1,14 @@
+{
+  "name": "react-project-first",
+  "version": "1.0.0",
+  "description": "React project with fundamental",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Deepak Joshi",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}
