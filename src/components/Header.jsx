@@ -1,6 +1,18 @@
+import { useState } from "react";
 import { LOGO } from "../util/constants";
 
 const Header = () => {
+  console.log("rendering");
+  const [buttonText, setButtonText] = useState("Login");
+  const handleButtonClick = () => {
+    if (buttonText === "Login") {
+      setButtonText("Logout");
+    } else {
+      setButtonText("Login");
+    }
+    // console.log(buttonText);
+  };
+  // console.log(buttonText);
   return (
     <div className="header-container">
       <div className="header-logo">
@@ -11,6 +23,14 @@ const Header = () => {
         <li className="header-nav-item">About Us</li>
         <li className="header-nav-item">Contact Us</li>
         <li className="header-nav-item">Cart</li>
+        <li>
+          <button
+            onClick={handleButtonClick}
+            style={{ padding: "1rem", cursor: "pointer" }}
+          >
+            {buttonText}
+          </button>
+        </li>
       </ul>
     </div>
   );

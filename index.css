@@ -21,6 +21,7 @@
   display: flex;
   gap: 1rem;
   list-style-type: none;
+  align-items: center;
 }
 
 .main-body {
@@ -44,4 +45,17 @@
 
 .filter-button:hover {
   cursor: pointer;
+}
+
+.skelton-body {
+  height: 250px;
+  width: 400px;
+  background-color: rgba(200, 198, 198, 0.584);
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+.restaurant-skelton-body {
+  display: flex;
+  flex-wrap: wrap;
 }
