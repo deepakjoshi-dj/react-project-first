@@ -2,31 +2,25 @@ import RestaurantCard from "./RestaurantCard";
 // import { resList } from "../util/mockData";
 import { useState, useEffect } from "react";
 import RestaurantSkelton from "./restaurantSkelton";
+import { RESTAURANT_API } from "../util/constants";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredListRestaurants, setFilteredListRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const filterHighRatingRestaurants = () => {
-    const filteredRestaurants = listOfRestaurants?.filter(
-      (restaurant) => restaurant?.info?.avgRating > 4.2
-    );
-    setListOfRestaurants(filteredRestaurants);
-  };
-
-  const api =
-    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4343684&lng=78.4224553&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+  const [searchText, setSearchText] = useState("");
 
   const getRestaurantData = async () => {
     try {
       setLoading(true);
-      const data = await fetch(api);
+      const data = await fetch(RESTAURANT_API);
       const json = await data.json();
 
       const restaurants = json?.data?.cards?.find(
         (item) => item?.card?.card?.id === "restaurant_grid_listing_v2"
       )?.card?.card?.gridElements?.infoWithStyle?.restaurants;
       setListOfRestaurants(restaurants);
+      setFilteredListRestaurants(restaurants);
     } catch (e) {
       console.error(e);
     } finally {
@@ -34,11 +28,23 @@ const Body = () => {
     }
   };
   useEffect(() => {
-    // console.log("Hello useEffect executed.");
     getRestaurantData();
   }, []);
 
-  // if (loading) return <RestaurantSkelton />;
+  const filterHighRatingRestaurants = () => {
+    const filteredRestaurants = listOfRestaurants?.filter(
+      (restaurant) => restaurant?.info?.avgRating > 4.2
+    );
+    setFilteredListRestaurants(filteredRestaurants);
+  };
+
+  const searchRestaurant = () => {
+    const filteredRestaurants = listOfRestaurants?.filter((restaurant) =>
+      restaurant?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase())
+    );
+    setFilteredListRestaurants(filteredRestaurants);
+  };
+
   return (
     <>
       {loading ? (
@@ -50,6 +56,20 @@ const Body = () => {
       ) : (
         <div className="main-body">
           <div className="search">
+            <div className="search">
+              <input
+                name="search-text"
+                value={searchText}
+                onChange={(e) => {
+                  console.log(e);
+                  setSearchText(e?.target?.value);
+                }}
+                className="filter-button"
+              />
+              <button onClick={searchRestaurant} className="filter-button">
+                Search
+              </button>
+            </div>
             <button
               onClick={filterHighRatingRestaurants}
               className="filter-button"
@@ -58,7 +78,7 @@ const Body = () => {
             </button>
           </div>
           <div className="res-container">
-            {listOfRestaurants?.map((restaurant, idx) => (
+            {filteredListRestaurants?.map((restaurant, idx) => (
               <RestaurantCard key={restaurant?.info?.id} resObj={restaurant} />
             ))}
           </div>

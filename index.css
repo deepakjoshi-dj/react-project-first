@@ -59,3 +59,8 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.search {
+  display: flex;
+  gap: 0.5rem;
+}

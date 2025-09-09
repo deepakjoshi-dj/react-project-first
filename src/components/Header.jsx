@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LOGO } from "../util/constants";
 
 const Header = () => {
@@ -10,9 +10,10 @@ const Header = () => {
     } else {
       setButtonText("Login");
     }
-    // console.log(buttonText);
   };
-  // console.log(buttonText);
+  useEffect(() => {
+    console.log("useEffect Run");
+  }, [buttonText]);
   return (
     <div className="header-container">
       <div className="header-logo">
