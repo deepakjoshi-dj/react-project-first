@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LOGO } from "../util/constants";
+import { Link } from "react-router";
 
 const Header = () => {
   console.log("rendering");
@@ -20,9 +21,15 @@ const Header = () => {
         <img alt="logo" height="100%" width="100%" src={LOGO} />
       </div>
       <ul className="header-nav-items">
-        <li className="header-nav-item">Home</li>
-        <li className="header-nav-item">About Us</li>
-        <li className="header-nav-item">Contact Us</li>
+        <li className="header-nav-item">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="header-nav-item">
+          <Link to="/about"> About Us</Link>
+        </li>
+        <li className="header-nav-item">
+          <Link to="/contact">Contact Us</Link>
+        </li>
         <li className="header-nav-item">Cart</li>
         <li>
           <button

@@ -1,5 +1,6 @@
 import TopBar from "./components/Header.jsx";
-import Body from "./components/Body.jsx";
+// import Body from "./components/Body.jsx";
+import { Outlet } from "react-router";
 
 /**
  * Header
@@ -21,7 +22,7 @@ const AppLayout = () => {
   return (
     <div>
       <TopBar />
-      <Body />
+      <Outlet />
       <h1>Footer</h1>
     </div>
   );

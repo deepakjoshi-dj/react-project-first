@@ -2,7 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 // import { resList } from "../util/mockData";
 import { useState, useEffect } from "react";
 import RestaurantSkelton from "./restaurantSkelton";
-import { RESTAURANT_API } from "../util/constants";
+import { HOMEPAGE_RESTAURANT_API } from "../util/constants";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -13,7 +13,7 @@ const Body = () => {
   const getRestaurantData = async () => {
     try {
       setLoading(true);
-      const data = await fetch(RESTAURANT_API);
+      const data = await fetch(HOMEPAGE_RESTAURANT_API);
       const json = await data.json();
 
       const restaurants = json?.data?.cards?.find(
