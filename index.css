@@ -64,3 +64,28 @@
   display: flex;
   gap: 0.5rem;
 }
+
+/* Accordion for Restaurant starts here */
+
+.accordion-header {
+  width: 100%;
+  margin: 0;
+  padding: 1rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.accordion-header--title {
+  font-weight: bold;
+}
+
+.accordion-panel-none {
+  display: none;
+}
+
+.accordion-panel-view {
+  display: block;
+}
