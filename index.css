@@ -67,6 +67,10 @@
 
 /* Accordion for Restaurant starts here */
 
+.accordion-wrapper {
+  margin: 1rem 0;
+}
+
 .accordion-header {
   width: 100%;
   margin: 0;
@@ -88,4 +92,21 @@
 
 .accordion-panel-view {
   display: block;
+}
+/* End Accordion Style */
+
+/* Restaurant Menu Card Style Starts Here.. */
+.restaurant-menu-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.restaurant-menu-img-container {
+  height: 150px;
+  width: 150px;
+  border-radius: 1rem;
+  overflow: hidden;
 }
