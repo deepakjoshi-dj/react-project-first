@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { RESTAURANT_API, RESTAURANT_IMG } from "../util/constants";
 import RestaurantSkelton from "./RestaurantSkelton";
+import { useParams } from "react-router";
 
 const ItemCategory =
   "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory";
@@ -12,11 +13,12 @@ const RestaurantsPage = () => {
   const [restaurantData, setRestaurantData] = useState([]);
   const [restaurantItems, setRestaurantItems] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { resId } = useParams();
+  console.log(resId);
   const getRestaurantData = async (restaurantId = "") => {
     try {
       setLoading(true);
-      const response = await fetch(RESTAURANT_API);
+      const response = await fetch(RESTAURANT_API + resId);
       const json = await response.json();
       debugger;
 
@@ -67,10 +69,10 @@ const RestaurantsPage = () => {
             return (
               <div style={{ margin: "2rem 0" }}>
                 <h2>{restaurant?.card?.card?.title}</h2>
-                {restaurant?.card?.card?.categories?.map((restaurant) => (
+                {restaurant?.card?.card?.categories?.map((item) => (
                   <RestaurantAccordion
-                    key={`${restaurant?.title}-${index}`}
-                    data={restaurant}
+                    key={`${restaurant?.card?.card?.title}-${item?.title}-${index}`}
+                    data={item}
                   />
                 ))}
               </div>
@@ -97,9 +99,9 @@ const RestaurantAccordion = (props) => {
         <div className="accordion-header--action-icon">+/-</div>
       </button>
       <div className={`accordion-panel-${viewAccordion ? "view" : "none"}`}>
-        {itemCards?.map((item) => (
+        {itemCards?.map((item, index) => (
           <RestaurantMenuView
-            key={item?.card?.info?.name}
+            key={`${title}-${item?.card?.info?.name}-${index}`}
             menuData={item?.card}
           />
         ))}

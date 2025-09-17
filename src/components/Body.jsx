@@ -1,8 +1,9 @@
 import RestaurantCard from "./RestaurantCard";
 // import { resList } from "../util/mockData";
 import { useState, useEffect } from "react";
-import RestaurantSkelton from "./restaurantSkelton";
+import RestaurantSkelton from "./RestaurantSkelton";
 import { HOMEPAGE_RESTAURANT_API } from "../util/constants";
+import { Link } from "react-router";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -79,7 +80,12 @@ const Body = () => {
           </div>
           <div className="res-container">
             {filteredListRestaurants?.map((restaurant, idx) => (
-              <RestaurantCard key={restaurant?.info?.id} resObj={restaurant} />
+              <Link
+                key={restaurant?.info?.id}
+                to={`/restaurant/${restaurant?.info?.id}`}
+              >
+                <RestaurantCard resObj={restaurant} />
+              </Link>
             ))}
           </div>
         </div>
