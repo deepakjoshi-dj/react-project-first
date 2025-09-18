@@ -3,7 +3,7 @@ import { LOGO } from "../util/constants";
 import { Link } from "react-router";
 
 const Header = () => {
-  console.log("rendering");
+  // console.log("rendering");
   const [buttonText, setButtonText] = useState("Login");
   const handleButtonClick = () => {
     if (buttonText === "Login") {
@@ -13,7 +13,7 @@ const Header = () => {
     }
   };
   useEffect(() => {
-    console.log("useEffect Run");
+    // console.log("useEffect Run");
   }, [buttonText]);
   return (
     <div className="header-container">

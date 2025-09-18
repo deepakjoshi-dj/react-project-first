@@ -4,6 +4,7 @@ const UserFunctional = (props) => {
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(2);
   const { name, location } = props;
+
   return (
     <div>
       <h1>User Details Functional Component</h1>
