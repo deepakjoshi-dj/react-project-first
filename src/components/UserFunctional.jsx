@@ -7,10 +7,14 @@ const UserFunctional = (props) => {
 
   useEffect(() => {
     console.log("useEffect called");
+    const timer = setInterval(() => {
+      console.log("function interval");
+    }, 1000);
     return () => {
+      clearInterval(timer);
       console.log("function component unmount");
     };
-  }, [count]);
+  }, []);
 
   useEffect(() => {
     console.log("sdfsdfh");

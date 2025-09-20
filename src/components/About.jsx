@@ -1,5 +1,5 @@
 import UserClass from "./UserClass";
-import UserFunctional from "./UserFunctional";
+// import UserFunctional from "./UserFunctional";
 import React from "react";
 
 class About extends React.Component {
@@ -31,7 +31,7 @@ class About extends React.Component {
         <h1>About Us Page</h1>
         <div style={{ display: "flex", padding: "1rem", gap: "1rem" }}>
           <UserClass name="first" location="Hyderabad" />
-          <UserFunctional name="first" location="Hyderabad" />
+          {/* <UserFunctional name="first" location="Hyderabad" /> */}
         </div>
       </div>
     );
