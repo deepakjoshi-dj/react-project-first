@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const UserFunctional = (props) => {
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(2);
   const { name, location } = props;
+
+  useEffect(() => {
+    console.log("useEffect called");
+    return () => {
+      console.log("function component unmount");
+    };
+  }, [count]);
+
+  useEffect(() => {
+    console.log("sdfsdfh");
+  }, [count2]);
 
   return (
     <div>

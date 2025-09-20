@@ -5,7 +5,7 @@ import React from "react";
 class About extends React.Component {
   constructor(props) {
     super(props);
-    console.log("parent constructor runs.");
+    // console.log("parent constructor runs.");
   }
   /**
    * parent constructor runs
@@ -21,17 +21,17 @@ class About extends React.Component {
    * parent component did mount.
    *
    */
-  componentDidMount() {
-    console.log("parent component did mount");
-  }
+  // componentDidMount() {
+  //   console.log("parent component did mount");
+  // }
   render() {
-    console.log("parent render method runs.");
+    // console.log("parent render method runs.");
     return (
       <div>
         <h1>About Us Page</h1>
         <div style={{ display: "flex", padding: "1rem", gap: "1rem" }}>
           <UserClass name="first" location="Hyderabad" />
-          <UserClass name="second" location="Hyderabad" />
+          <UserFunctional name="first" location="Hyderabad" />
         </div>
       </div>
     );
