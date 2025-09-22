@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { HOMEPAGE_RESTAURANT_API } from "./constants";
+import useOnlineStatus from "./useOnlineStatus";
 
 const useRestaurantMenu = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredListRestaurants, setFilteredListRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const isOnline = useOnlineStatus();
 
   const getRestaurantData = async () => {
     try {
@@ -25,8 +27,10 @@ const useRestaurantMenu = () => {
     }
   };
   useEffect(() => {
-    getRestaurantData();
-  }, []);
+    if (isOnline) {
+      getRestaurantData();
+    }
+  }, [isOnline]);
 
   const filterHighRatingRestaurants = () => {
     const filteredRestaurants = listOfRestaurants?.filter(

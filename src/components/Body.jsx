@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import RestaurantSkelton from "./RestaurantSkelton";
 import { Link } from "react-router";
 import useRestaurantMenu from "../util/useRestaurantMenu";
+import useOnlineStatus from "../util/useOnlineStatus";
 
 const Body = () => {
   const {
@@ -12,6 +13,10 @@ const Body = () => {
     searchRestaurant,
     searchText,
   } = useRestaurantMenu();
+  const isOnline = useOnlineStatus();
+  console.log(isOnline);
+  if (!isOnline)
+    return <h1>You're Offline! Please Check Your Internet Connection</h1>;
   return (
     <>
       {loading ? (

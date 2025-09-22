@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { LOGO } from "../util/constants";
 import { Link } from "react-router";
+import useOnlineStatus from "../util/useOnlineStatus";
 
 const Header = () => {
   // console.log("rendering");
   const [buttonText, setButtonText] = useState("Login");
+  const isOnline = useOnlineStatus();
   const handleButtonClick = () => {
     if (buttonText === "Login") {
       setButtonText("Logout");
@@ -22,6 +24,9 @@ const Header = () => {
       </div>
       <ul className="header-nav-items">
         <li className="header-nav-item">
+          Online Status : {isOnline ? "🟢 Online" : "🔴 Offline"}
+        </li>
+        <li className="header-nav-item">
           <Link to="/">Home</Link>
         </li>
         <li className="header-nav-item">
@@ -29,6 +34,9 @@ const Header = () => {
         </li>
         <li className="header-nav-item">
           <Link to="/contact">Contact Us</Link>
+        </li>
+        <li className="header-nav-item">
+          <Link to="/grocery">Instamart</Link>
         </li>
         <li className="header-nav-item">Cart</li>
         <li>
