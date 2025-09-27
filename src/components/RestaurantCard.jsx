@@ -1,31 +1,22 @@
 import { RESTAURANT_IMG } from "../util/constants";
 
-const restaurantCardStyle = {
-  width: "400px",
-  backgroundColor: "#eae8e8",
-  padding: "0.8rem",
-  borderRadius: "1rem",
-  flexWrap: "wrap",
-};
-
 const RestaurantCard = (props) => {
   const { name, avgRatingString, cuisines, areaName, cloudinaryImageId } =
     props?.resObj?.info;
   return (
-    <div style={restaurantCardStyle}>
-      <div className="res-logo">
+    <div className="h-full flex flex-col hover:scale-95 transition duration-700 ease-in-out">
+      <div className="h-50 rounded-2xl overflow-hidden">
         <img
           alt="res-logo"
-          height="100%"
-          width="100%"
+          className="h-full w-full"
           src={RESTAURANT_IMG + cloudinaryImageId}
         />
       </div>
-      <div>
-        <h3>{name}</h3>
-        <h4>{avgRatingString} rating</h4>
-        <h4>{cuisines?.join(", ")}</h4>
-        <h4>{areaName}</h4>
+      <div className="pl-2">
+        <div className="font-extrabold">{name}</div>
+        <div className="font-semibold">{avgRatingString} rating</div>
+        <div className="text-gray-500">{cuisines?.join(", ")}</div>
+        <div className="text-gray-400">{areaName}</div>
       </div>
     </div>
   );

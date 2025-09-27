@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { RESTAURANT_API, RESTAURANT_IMG } from "../util/constants";
+import {
+  ITEM_CATEGORY,
+  NESTED_ITEM_CATEGORY,
+  RESTAURANT_API,
+  RESTAURANT_IMG,
+} from "../util/constants";
 import RestaurantSkelton from "./RestaurantSkelton";
 import { useParams } from "react-router";
-
-const ItemCategory =
-  "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory";
-
-const NestedItemCategory =
-  "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory";
+import RestaurantAccordion from "./RestaurantAccordion";
 
 const RestaurantsPage = () => {
   const [restaurantData, setRestaurantData] = useState([]);
@@ -15,12 +15,11 @@ const RestaurantsPage = () => {
   const [loading, setLoading] = useState(true);
   const { resId } = useParams();
   console.log(resId);
-  const getRestaurantData = async (restaurantId = "") => {
+  const getRestaurantData = async () => {
     try {
       setLoading(true);
       const response = await fetch(RESTAURANT_API + resId);
       const json = await response.json();
-      debugger;
 
       let filteredRestaurantItems = json?.data?.cards?.find(
         (card) => card?.groupedCard?.cardGroupMap?.REGULAR?.cards?.length
@@ -29,7 +28,7 @@ const RestaurantsPage = () => {
         filteredRestaurantItems?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
       filteredRestaurantItems = filteredRestaurantItems?.filter((item) =>
-        [ItemCategory, NestedItemCategory]?.includes(
+        [ITEM_CATEGORY, NESTED_ITEM_CATEGORY]?.includes(
           item?.card?.card?.["@type"]
         )
       );
@@ -49,15 +48,23 @@ const RestaurantsPage = () => {
 
   console.log(restaurantItems);
 
-  if (loading) return <RestaurantSkelton />;
+  if (loading)
+    return (
+      <div className="flex justify-center">
+        <div className="inline-flex">
+          <RestaurantSkelton />
+          <RestaurantSkelton />
+        </div>
+      </div>
+    );
 
   return (
     <div>
       <h1>{restaurantData?.cards?.[0]?.card?.card?.text}</h1>
 
-      <div style={{ padding: "1rem" }}>
+      <div className=" m-auto w-full md:w-1/2 ">
         {restaurantItems?.map((restaurant, index) => {
-          if (restaurant?.card?.card?.["@type"] === ItemCategory) {
+          if (restaurant?.card?.card?.["@type"] === ITEM_CATEGORY) {
             return (
               <RestaurantAccordion
                 key={`${restaurant?.card?.card?.title}-${index}`}
@@ -65,10 +72,10 @@ const RestaurantsPage = () => {
               />
             );
           }
-          if (restaurant?.card?.card?.["@type"] === NestedItemCategory) {
+          if (restaurant?.card?.card?.["@type"] === NESTED_ITEM_CATEGORY) {
             return (
               <div style={{ margin: "2rem 0" }}>
-                <h2>{restaurant?.card?.card?.title}</h2>
+                <div className="text-xl">{restaurant?.card?.card?.title}</div>
                 {restaurant?.card?.card?.categories?.map((item) => (
                   <RestaurantAccordion
                     key={`${restaurant?.card?.card?.title}-${item?.title}-${index}`}
@@ -79,60 +86,6 @@ const RestaurantsPage = () => {
             );
           }
         })}
-      </div>
-    </div>
-  );
-};
-
-const RestaurantAccordion = (props) => {
-  const { title, itemCards } = props?.data;
-  const [viewAccordion, setViewAccordion] = useState(false);
-  const handleAccordion = () => {
-    setViewAccordion((prev) => !prev);
-  };
-  return (
-    <div className="accordion-wrapper">
-      <button className="accordion-header" onClick={handleAccordion}>
-        <div className="accordion-header--title">
-          {title} ({itemCards?.length})
-        </div>
-        <div className="accordion-header--action-icon">+/-</div>
-      </button>
-      <div className={`accordion-panel-${viewAccordion ? "view" : "none"}`}>
-        {itemCards?.map((item, index) => (
-          <RestaurantMenuView
-            key={`${title}-${item?.card?.info?.name}-${index}`}
-            menuData={item?.card}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const RestaurantMenuView = (props) => {
-  const { name, price, offerTags, description, imageId } =
-    props?.menuData?.info;
-  return (
-    <div className="restaurant-menu-card">
-      <div>
-        <div>{name}</div>
-        <div>
-          {price / 100} {offerTags?.[0]?.title} {offerTags?.[0]?.subTitle}
-        </div>
-        <div>{description}</div>
-      </div>
-      <div className="restaurant-menu-img-container">
-        {imageId ? (
-          <img
-            height="100%"
-            width="100%"
-            src={RESTAURANT_IMG + imageId}
-            alt={name}
-          />
-        ) : (
-          <div>Add</div>
-        )}
       </div>
     </div>
   );

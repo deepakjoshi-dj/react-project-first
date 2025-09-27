@@ -20,36 +20,39 @@ const Body = () => {
   return (
     <>
       {loading ? (
-        <div className="restaurant-skelton-body">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]?.map((item) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]?.map((item) => (
             <RestaurantSkelton key={item} />
           ))}
         </div>
       ) : (
-        <div className="main-body">
-          <div className="search">
-            <div className="search">
+        <div className="p-2 flex flex-col gap-2">
+          <div className="flex gap-2">
+            <div className="flex gap-1">
               <input
+                className="border-2 rounded-[0.5rem] p-1"
                 name="search-text"
                 value={searchText}
                 onChange={(e) => {
                   console.log(e);
                   setSearchText(e?.target?.value);
                 }}
-                className="filter-button"
               />
-              <button onClick={searchRestaurant} className="filter-button">
+              <button
+                onClick={searchRestaurant}
+                className="border-2 rounded-[0.5rem] p-1 px-3 hover:cursor-pointer hover:border-blue-800 hover:text-blue-700"
+              >
                 Search
               </button>
             </div>
             <button
+              className="border-2 rounded-[0.5rem] p-1 px-3 hover:cursor-pointer hover:border-blue-800 hover:text-blue-700"
               onClick={filterHighRatingRestaurants}
-              className="filter-button"
             >
               Higher Rating Restaurants
             </button>
           </div>
-          <div className="res-container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {filteredListRestaurants?.map((restaurant, idx) => (
               <Link
                 key={restaurant?.info?.id}
