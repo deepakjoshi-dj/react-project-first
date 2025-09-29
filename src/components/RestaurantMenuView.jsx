@@ -9,7 +9,7 @@ const RestaurantMenuView = (props) => {
       <div>
         <div className="text-lg font-bold">{name}</div>
         <div className="text-sm">
-          ₹ {price ?? defaultPrice / 100} {offerTags?.[0]?.title}{" "}
+          ₹ {(price ?? defaultPrice) / 100} {offerTags?.[0]?.title}{" "}
           {offerTags?.[0]?.subTitle}
         </div>
         <div className="text-gray-500 text-sm">{description}</div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RestaurantMenuView from "./RestaurantMenuView";
+import withBestSellerLabel from "./withBestsellerLabel";
 
 const RestaurantAccordion = (props) => {
   const { title, itemCards } = props?.data;
@@ -7,7 +8,7 @@ const RestaurantAccordion = (props) => {
   const handleAccordion = () => {
     setViewAccordion((prev) => !prev);
   };
-  console.log(viewAccordion);
+  const RestaurantMenuCardBestSeller = withBestSellerLabel(RestaurantMenuView);
   return (
     <div className="border-gray-50 border-b-[1rem]">
       <button
@@ -20,12 +21,19 @@ const RestaurantAccordion = (props) => {
         <div className="text-2xl">{viewAccordion ? "⬆️" : "⬇️"}</div>
       </button>
       <div className={`${viewAccordion ? " block" : "hidden"}`}>
-        {itemCards?.map((item, index) => (
-          <RestaurantMenuView
-            key={`${title}-${item?.card?.info?.name}-${index}`}
-            menuData={item?.card}
-          />
-        ))}
+        {itemCards?.map((item, index) =>
+          item?.card?.info?.ribbon?.text ? (
+            <RestaurantMenuCardBestSeller
+              key={`${title}-${item?.card?.info?.name}-${index}`}
+              menuData={item?.card}
+            />
+          ) : (
+            <RestaurantMenuView
+              key={`${title}-${item?.card?.info?.name}-${index}`}
+              menuData={item?.card}
+            />
+          )
+        )}
       </div>
     </div>
   );
